@@ -2,14 +2,11 @@
 
 from setuptools import setup, find_packages
 
-from gentle.main import __version__
-
-
-readme = open('README.md').read()
+readme = open('README.rst').read()
 
 setup(
     name='Gentle',
-    version=__version__ ,
+    version=0.1,
     description='Gentle is a help you quickly submit code to the test environment tools.',
     long_description='',
     author='Dong Weiming',
@@ -23,24 +20,24 @@ setup(
         ]
     },
     classifiers=[
-          'Development Status :: 1 - Production/Stable',
-          'Environment :: Console',
-          'Intended Audience :: Developers',
-          'Intended Audience :: System Administrators',
-          'License :: OSI Approved :: BSD License',
-          'Operating System :: MacOS :: MacOS X',
-          'Operating System :: Unix',
-          'Operating System :: POSIX',
-          'Programming Language :: Python',
-          'Programming Language :: Python :: 2.5',
-          'Programming Language :: Python :: 2.6',
-          'Programming Language :: Python :: 2.7',
-          'Topic :: Software Development',
-          'Topic :: Software Development :: Build Tools',
-          'Topic :: Software Development :: Libraries',
-          'Topic :: Software Development :: Libraries :: Python Modules',
-          'Topic :: System :: Clustering',
-          'Topic :: System :: Software Distribution',
-          'Topic :: System :: Systems Administration',
+        'Development Status :: 5 - Production/Stable',
+        'Environment :: Console',
+        'Intended Audience :: Developers',
+        'Intended Audience :: System Administrators',
+        'License :: OSI Approved :: BSD License',
+        'Operating System :: MacOS :: MacOS X',
+        'Operating System :: Unix',
+        'Operating System :: POSIX',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.5',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
+        'Topic :: Software Development',
+        'Topic :: Software Development :: Build Tools',
+        'Topic :: Software Development :: Libraries',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Topic :: System :: Clustering',
+        'Topic :: System :: Software Distribution',
+        'Topic :: System :: Systems Administration',
     ],
 )

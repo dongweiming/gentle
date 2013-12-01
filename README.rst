@@ -41,6 +41,19 @@ Gentle can help you automated do that. The development process is:
 
 That's all
 
+Install
+=====
+
+    You only use::
+
+      $sudo pip install gentle
+
+    or::
+
+      $git clone https://github.com/dongweiming/gentle
+      $cd gentle
+      $sudo python setup.py install
+
 Get Started
 =========
 
