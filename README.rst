@@ -7,6 +7,7 @@
 :Source: http://github.com/dongweiming/gentle
 :Keywords: fabric, docopt, yaml, devops, python
 
+
 --
 
 What is a Gentle?
@@ -79,41 +80,41 @@ Get Started
          user: root
      username: root
 
-   Parameter Description
-   ~~~~~~~~~~~
+Parameter Description
+~~~~~~~~~~~
 
-   :host:
-      environment server ip, can use : + port.
+:host:
+  environment server ip, can use : + port.
 
-   :password:
-      account's password.
+:password:
+  account's password.
 
-   :rsync:
-      which dir that you want to sync.
+:rsync:
+  which dir that you want to sync.
 
-   :services:
-      which services that you want to restart.
+:services:
+  which services that you want to restart.
 
-   :username:
-      which account to use.
+:username:
+  which account to use.
 
-   :lpath:
-      local path, you can use *$ROOT$* for current directory.
+:lpath:
+  local path, you can use *$ROOT$* for current directory.
 
-   :rpath:
-      remote path.
+:rpath:
+  remote path.
 
-   :command:
-      How to restart service's command.
+:command:
+  How to restart service's command.
 
-   :priority:
-      It for restart's order, it's bigger, and restart earlier.
+:priority:
+  It for restart's order, it's bigger, and restart earlier.
 
-   :sudo:
-      A bool for tell gentle use sudo or not.
+:sudo:
+  A bool for tell gentle use sudo or not.
 
-   :user:
-      When use sudo which account to use. default it's username's value.
+:user:
+  When use sudo which account to use. default it's username's value.
 
 - **list help**
 
@@ -127,29 +128,29 @@ Get Started
 
    $gt -l
 
-   Command Description
-   ~~~~~~~~~~~
+Command Description
+~~~~~~~~~~~
 
-   :rsync/rs:
-      Rsync your local dir to remote.
+:rsync/rs:
+  Rsync your local dir to remote.
 
-   :restart/rt:
-      Restart your services.
+:restart/rt:
+  Restart your services.
 
-   :pubish/p:
-      Publish your app, It equal *rsync* + *restart*.
+:pubish/p:
+  Publish your app, It equal *rsync* + *restart*.
 
-   :showconf/show:
-      Show gentle settings.
+:showconf/show:
+  Show gentle settings.
 
-   :setconf/set:
-      Set gentle conf. You can directly edit. Gentle.yaml file, you can also choose this command::
+:setconf/set:
+  Set gentle conf. You can directly edit. Gentle.yaml file, you can also choose this command::
 
-        - gt set:key=services.nginx.rpath,value=/root
-        - gt s:key=host,value=8.8.8.8:12345
-        - gt s:key=rsync.rpath,value=/root
+    - gt set:key=services.nginx.rpath,value=/root
+    - gt s:key=host,value=8.8.8.8:12345
+    - gt s:key=rsync.rpath,value=/root
 
-        - dot is the separator.
+    - dot is the separator.
 
 Enjoy it
 =======
