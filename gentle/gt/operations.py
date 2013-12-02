@@ -6,7 +6,7 @@ from fabric.api import local, run, sudo, task
 from fabric.contrib.console import confirm
 from fabric.state import env
 from fabric.context_managers import cd, lcd, hide, settings
-from fabric.colors import red, green, yellow
+from fabric.colors import red, green
 
 from .utils import repl_root
 from .project import rsync_project

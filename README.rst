@@ -69,6 +69,10 @@ Install
 Get Started
 =========
 
+- **gt**
+
+    After you install, you can use `gt` , Similar `fab` but very different.
+
 - **init**
 
     When you start to use gentle for the current directory. You first init it::
@@ -109,7 +113,7 @@ Parameter Description
 ~~~~~~~~~~~
 
 :host:
-  environment server ip, can use : + port.
+  environment server ip, can use `host:port`, or `host`
 
 :password:
   account's password.
@@ -175,7 +179,7 @@ Command Description
     - gt s:key=host,value=8.8.8.8:12345
     - gt s:key=rsync.rpath,value=/root
 
-    - dot is the separator.
+    dot is the separator.
 
 Enjoy it
 =======

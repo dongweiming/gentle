@@ -7,7 +7,7 @@ readme = open('README.rst').read()
 setup(
     name='Gentle',
     version=0.1,
-    description='Gentle is a help you quickly submit code to the test environment tools.',
+    description='Gentle is a help you quickly submit code to the test environment tools.',  # noqa
     long_description='',
     author='Dong Weiming',
     author_email='ciici123@gmail.com',
