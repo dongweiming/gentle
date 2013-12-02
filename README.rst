@@ -43,8 +43,20 @@ That's all
 
 Install
 =====
+    First You must install `sshpass`, IN fabric rsync_project need input
+    password again. I use sshpass automation of this process
 
-    You only use::
+    In ubuntu direct use apt-get/aptitude::
+
+      $sudo apt-get install sshpass
+
+    Other platform, Go ``http://sourceforge.net/projects/sshpass`` donwload
+    the lastest verison, then type the following command::
+
+      $tar zxvf sshpass-1.05.tar.gz && cd sshpass-1.05
+      $./configure && make && sudo make install
+
+    Then install `gentle`, You only use::
 
       $sudo pip install gentle
 
