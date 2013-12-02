@@ -6,7 +6,7 @@ from fabric.api import local, run, sudo, task
 from fabric.contrib.console import confirm
 from fabric.state import env
 from fabric.context_managers import cd, lcd, hide, settings
-from fabric.colors import red, green
+from fabric.colors import red, green, yellow
 
 from .utils import repl_root
 from .project import rsync_project
@@ -30,7 +30,7 @@ def rsync():
 def restart():
     '''Restart your services'''
     for service, need_ops in env.services.iteritems():
-        print(green(service + "start..."))
+        print(yellow(service) + ": " + green("start..."))
         try:
             rsync_project(need_ops['rpath'], need_ops['lpath'], sshpass=True)
             if need_ops['sudo']:
@@ -39,6 +39,6 @@ def restart():
             else:
                 run(need_ops['command'])
         except:
-            print(red(service + "fail..."))
+            print(red(service + ": fail..."))
             continue
-        print(green(service + "end..."))
+        print(yellow(service) + ": " + green("end..."))
