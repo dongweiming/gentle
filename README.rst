@@ -89,6 +89,8 @@ Get Started
      $cat .gentle.yaml
      host: localhost:22
      password: 123456
+     gateway:
+     gatewaypassword:
      rsync:
        lpath: $ROOT
        rpath: /root

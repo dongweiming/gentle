@@ -128,8 +128,17 @@ def rsync_project(
     # RSH
     rsh_string = ""
     rsh_parts = [key_string, port_string, ssh_opts]
+    gate_pass = None
     if any(rsh_parts):
+        # when have gateway
+        if env.gateway:
+            guser, ghost, gport = normalize(env.gateway)
+            gport_string = "-p %s" % gport
+            gate_pass = env.passwords[env.gateway]
+            rsh_parts.append(
+                "%s sshpass -p %s ssh -p %s" % (ghost, env.password, gport))
         rsh_string = "--rsh='ssh %s'" % " ".join(rsh_parts)
+
     # Set up options part of string
     options_map = {
         'delete': '--delete' if delete else '',
@@ -154,7 +163,7 @@ def rsync_project(
     else:
         cmd = "rsync %s %s:%s %s" % (options, remote_prefix, remote_dir, local_dir)
     if sshpass:
-        cmd = "sshpass -p %s %s" % (env.password, cmd)
+        cmd = "sshpass -p %s %s" % (gate_pass if gate_pass else env.password, cmd)
     if output.running:
         print("[%s] rsync_project: %s" % (env.host_string, cmd))
     return local(cmd, capture=capture)

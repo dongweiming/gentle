@@ -22,6 +22,9 @@ class YamlHandler(object):
         env.host_string = self.yaml_data['host']
         env.user = self.yaml_data['username']
         env.password = self.yaml_data['password']
+        env.gateway = self.yaml_data['gateway']
+        if env.gateway:
+            env.passwords[env.gateway] = self.yaml_data['gatewaypassword']
         services = OrderedDict(sorted(
             self.yaml_data['services'].items(),
             key=lambda t: int(t[1]['priority'])))
