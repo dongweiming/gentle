@@ -35,7 +35,8 @@ class YamlHandler(object):
         try:
             flag = False
             key = args[0]
-            if key in ['username', 'host', 'password']:
+            if key in ['username', 'host', 'password', 'gateway',
+                       'gatewaypassword']:
                 self.yaml_data[key] = value
                 print(green('Set [{0}] to [{1}] Success'.format(key, value)))
                 flag = True

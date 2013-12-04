@@ -113,10 +113,16 @@ Parameter Description
 ~~~~~~~~~~~
 
 :host:
-  environment server ip, can use `host:port`, or `host`
+  environment server, can use `user@host:port`, or `host`, or `host:port`
 
 :password:
   account's password.
+
+:gateway:
+  Gateway server(Jump server) use `user@host:port`, or `host`, or `host:port`
+
+:gatewaypassword:
+  Gateway server's password
 
 :rsync:
   which dir that you want to sync.
