@@ -89,6 +89,8 @@ Get Started
      $cat .gentle.yaml
      host: localhost:22
      password: 123456
+     gateway:
+     gatewaypassword:
      rsync:
        lpath: $ROOT
        rpath: /root
@@ -162,6 +164,19 @@ Parameter Description
    You can type the following command to show available commands::
 
    $gt -l
+
+- **output type**
+
+   Gnetle is use fabric default output type. you can find available type which::
+
+   $gt -h
+
+   You can assign it::
+
+   $gt --show=debug,user rs # Only show debug,user type
+   $gt --hide=warning rs #Hide status,aborts,warnings three types
+   $gt --show debug rs --only #Only show debug type
+
 
 Command Description
 ~~~~~~~~~~~

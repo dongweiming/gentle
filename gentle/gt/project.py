@@ -133,7 +133,6 @@ def rsync_project(
         # when have gateway
         if env.gateway:
             guser, ghost, gport = normalize(env.gateway)
-            gport_string = "-p %s" % gport
             gate_pass = env.passwords[env.gateway]
             rsh_parts.append(
                 "%s sshpass -p %s ssh -p %s" % (ghost, env.password, gport))
@@ -167,54 +166,3 @@ def rsync_project(
     if output.running:
         print("[%s] rsync_project: %s" % (env.host_string, cmd))
     return local(cmd, capture=capture)
-
-
-def upload_project(local_dir=None, remote_dir="", use_sudo=False):
-    """
-    Upload the current project to a remote system via ``tar``/``gzip``.
-
-    ``local_dir`` specifies the local project directory to upload, and defaults
-    to the current working directory.
-
-    ``remote_dir`` specifies the target directory to upload into (meaning that
-    a copy of ``local_dir`` will appear as a subdirectory of ``remote_dir``)
-    and defaults to the remote user's home directory.
-
-    ``use_sudo`` specifies which method should be used when executing commands
-    remotely. ``sudo`` will be used if use_sudo is True, otherwise ``run`` will
-    be used.
-
-    This function makes use of the ``tar`` and ``gzip`` programs/libraries,
-    thus it will not work too well on Win32 systems unless one is using Cygwin
-    or something similar. It will attempt to clean up the local and remote
-    tarfiles when it finishes executing, even in the event of a failure.
-
-    .. versionchanged:: 1.1
-        Added the ``local_dir`` and ``remote_dir`` kwargs.
-
-    .. versionchanged:: 1.7
-        Added the ``use_sudo`` kwarg.
-    """
-    runner = use_sudo and sudo or run
-
-    local_dir = local_dir or os.getcwd()
-
-    # Remove final '/' in local_dir so that basename() works
-    local_dir = local_dir.rstrip(os.sep)
-
-    local_path, local_name = os.path.split(local_dir)
-    tar_file = "%s.tar.gz" % local_name
-    target_tar = os.path.join(remote_dir, tar_file)
-    tmp_folder = mkdtemp()
-
-    try:
-        tar_path = os.path.join(tmp_folder, tar_file)
-        local("tar -czf %s -C %s %s" % (tar_path, local_path, local_name))
-        put(tar_path, target_tar, use_sudo=use_sudo)
-        with cd(remote_dir):
-            try:
-                runner("tar -xzf %s" % tar_file)
-            finally:
-                runner("rm -f %s" % tar_file)
-    finally:
-        local("rm -rf %s" % tmp_folder)

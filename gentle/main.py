@@ -1,18 +1,30 @@
 """This is gentle command line
 
 Usage:
-  gt COMMAND...
+  gt [(--show=<type> | --hide=<type>) [--only]] COMMAND...
   gt (-l | --list)
   gt --version
   gt init
 
 Arguments:
+  <type>               message output type
+                       [chioces: 'status', 'aborts', 'warnings', 'running',
+                       'stdout', 'stderr', 'debug', 'user']
+                       [aliases:
+                           'everything':
+                               ['warnings', 'running', 'user', 'output'],
+                           'output': ['stdout', 'stderr'],
+                           'commands': ['stdout', 'running']
+
   COMMAND              gentle command
 
 Options:
   -h --help            show this help message and exit
   --version            show version and exit
   -l --list            show available commands
+  --hide=<type>        setting hide output type
+  --show=<type>        setting show output type
+  --only               If use, only hide/show this one type
   init                 initialize the current directory
 
 """
@@ -22,6 +34,18 @@ import os
 import sys
 
 __version__ = '0.1'
+choices = {'status': 1,
+           'aborts': 2,
+           'warnings': 3,
+           'running': 4,
+           'stdout': 5,
+           'stderr': 6,
+           'debug': 7,
+           'user': 8}
+aliases = {'everything': ['warnings', 'running', 'user', 'output'],
+           'output': ['stdout', 'stderr'],
+           'commands': ['stdout', 'running']}
+
 here = os.path.abspath(os.path.dirname(__file__))
 
 from docopt import docopt
@@ -32,6 +56,41 @@ from fabric.colors import red, green
 from fabric.utils import warn, indent
 from fabric.main import (load_fabfile, parse_arguments, show_commands,
                          disconnect_all)
+
+
+def set_output(output_type, hide, only):
+    '''Set state.output bool value'''
+    output_list = output_type.split(',')
+    # set output default all not match
+    for k in choices.keys():
+        state.output[k] = hide
+    # when use mutli type, only set this match
+    if len(output_list) > 1:
+        for o in output_list:
+            if o in choices:
+                state.output[o] = not hide
+            else:
+                # when has unkown type
+                print(red(o + ' is a Unknown type, Ignore it!'))
+    else:
+        # when only has the type
+        t = output_list[0]
+        # when in aliases
+        if t in aliases:
+            for a in aliases[t]:
+                state.output[a] = not hide
+        # when in choices
+        elif t in choices:
+            # when force only one type to match
+            if only:
+                state.output[t] = not hide
+            else:
+                num = choices[t]
+                for type, type_num in choices.iteritems():
+                    if type_num <= num:
+                        state.output[type] = not hide
+        else:
+            print(red(t + ' is a Unknown type, Ignore it!'))
 
 
 def init():
@@ -71,7 +130,7 @@ def gentleman():
     arguments = args_dict['COMMAND']
     if not os.path.exists(os.path.join(os.getcwd(), '.gentle.yaml')):
         if arguments != ['init']:
-            print(red('This is not a gentle directory, Make sure this is the correct'
+            print(red('This is not a gentle directory, Make sure this is the correct'  # noqa
                   'directory, and use `gt init` Initialization'))
             return sys.exit(1)
         else:
@@ -94,6 +153,11 @@ def gentleman():
 
         if args_dict['--list']:
             show_commands(docstring, 'normal', 1)
+        for type in ['show', 'hide']:
+            t = args_dict['--' + type]
+            if t is not None:
+                hide = True if type == 'hide' else False
+                set_output(t, hide=hide, only=args_dict['--only'])
 
         # Abort if any unknown commands were specified
         if unknown_commands:

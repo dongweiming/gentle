@@ -165,6 +165,18 @@ Parameter Description
 
    $gt -l
 
+- **output type**
+
+   Gnetle is use fabric default output type. you can find available type which::
+
+   $gt -h
+
+   You can assign it::
+
+   $gt --show=debug,user rs # Only show debug,user type
+   $gt --hide=warning rs #Hide status,aborts,warnings three types
+   $gt --show debug rs --only #Only show debug type
+
 Command Description
 ~~~~~~~~~~~
 
