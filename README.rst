@@ -115,7 +115,8 @@ Parameter Description
 ~~~~~~~~~~~
 
 :host:
-  environment server, can use `user@host:port`, or `host`, or `host:port`
+  environment server, can use `user@host:port`, or `host`, or `host:port`,
+  or hosts list: [`user@host1:port`, `user@host2:port`...]
 
 :password:
   account's password.

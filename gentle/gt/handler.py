@@ -19,7 +19,11 @@ class YamlHandler(object):
                 sys.exit(1)
 
     def set_env(self, env):
-        env.host_string = self.yaml_data['host']
+        hosts = self.yaml_data['host']
+        if isinstance(hosts, list):
+            env.hosts = hosts
+        else:
+            env.host_string = self.yaml_data['host']
         env.user = self.yaml_data['username']
         env.password = self.yaml_data['password']
         env.gateway = self.yaml_data['gateway']
